@@ -19,7 +19,7 @@ polindrome(Lista):- voltear(Lista,Lista).
 %dividir(List,List2,List3)
 dividir([],[],[]).
 dividir([Elemento1],[Elemento1],[]).
-dividir([Elemento1,Elemento2|Lista],(Elemento1|Lista1), [Elemento2|Lista2]):-dividir(Lista,Lista1,Lista2).
+dividir([Elemento1,Elemento2|Lista],[Elemento1|Lista1], [Elemento2|Lista2]):-dividir(Lista,Lista1,Lista2).
 
 %insertar
 insertar(X,1,L,[X|L]):-!.
