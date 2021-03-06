@@ -1,5 +1,110 @@
 # Proyecto 1
 
+## Problema 1
+
+Hechos:
+
+Recibe un argumento para indicar cual es el culpable del problema.
+
+```
+es_culpable(X)
+```
+
+Es mujer recibe un argumento para declarar un género.
+
+```
+es_mujer()
+```
+
+Es hombre recibe un argumento para declarar un género.
+
+```
+es_hombre()
+```
+
+Recibe 2 argumentos y se utilizará para definir las parejas de la familia.
+
+```
+es_esposa(,)
+```
+
+Recibe 2 argumentos y se utilizará para definir las hermanas de algún miembro de la familia.
+
+```
+es_hermana(,)
+```
+
+Recibe 2 argumentos y se utilizará para definir los hermanos de algún miembro de la familia.
+
+```
+es_hermana(,)
+```
+
+Recibe 2 argumentos y se utiliza para definir los hijos de algún miembro de la familia.
+
+```
+es_padre(,)
+```
+
+Recibe 1 argumento y se utiliza para definir la acción de llorar de un miembro de la familia.
+
+```
+estaban_llorando()
+```
+
+Recibe 2 argumentos y se utiliza para definir la acción de charla entre 2 miembros de la familia.
+
+```
+charlaba_con(,)
+```
+
+Reglas:
+
+Se reciben 2 argumentos y se indica que la charla de los personajes es en 2 direcciones.
+
+```
+charlaban(X,Y):- charlaba_con(X,Y);
+                 charlaba_con(Y,X).
+```
+
+Se reciben 2 argumentos y se indica que cuando son hermanos, la relación es en ambas direcciones, ya sea si se define como hermana o como hermano.
+
+```
+son_hermanos(X,Y):- es_hermana(X,Y); 
+                    es_hermana(Y,X);
+                    es_hermano(Y,X);
+                    es_hermano(X,Y).
+```
+
+Se reciben 2 argumentos y se indica que cuando la relación es de esposos, esto es en ambas vías.
+
+```
+son_esposos(X,Y):- es_esposa(X,Y);
+                   es_esposa(Y,X).
+```
+
+Se indica que la relación de cuñados depende de la pareja de los hermanos.
+
+```
+son_cunis(X,Y):-((son_esposos(X,Z),son_hermanos(Z,Y));
+                (son_esposos(Y,Z),son_hermanos(Z,X)))
+```
+
+Se indica que la relación de primos depende de los hijos de padres distintos.
+
+```
+son_primos(X,Y):-es_padre(Z,X),es_padre(W,Y),
+                 son_hermanos(W,Z)
+```
+
+La regla que define al culpable indica que debe de ser hermana (descartando al trío de hermanos), indica la entre los hermanos, que debe de ser hombre y que este no está llorando.
+
+```
+es_culpable(X):- es_hermana(Y,X),
+                 (es_padre(Z,X);es_padre(Z,Y)), 
+                 es_padre(W,Z), es_hombre(W), not(estaban_llorando(X))
+```
+
 
 
 ## Problema 3
@@ -21,8 +126,6 @@ Recibe 1 lista, y dos argumentos, se utilizara para ir juntando la lista voltead
 ```
 juntar([],Lista,Lista).
 ```
-
-
 
 Reglas:
 
