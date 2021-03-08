@@ -1,4 +1,4 @@
-%swipl -s problema1.pl
+%swipl -s problema2.pl
 es_mujer(ana).
 es_mujer(ruth).
 es_mujer(diana).
@@ -89,4 +89,24 @@ print_padre(X,Y):-write('es padre/madre de: '),
 %%%%% ejemplo
 %%%%% print_abue(ana,Y).
 
+pirnt(_):- write('                                Ana lucia-lamar          '),
+                nl,
+                write('                              / \\'),
+                nl,
+                write('               Ruth-Pedro                Diana-Feliciano       '),
+                nl,
+                write('                  /\\                             |      '),
+                nl,
+                write('     Ines               Jonas-Soledad          Manuel    '),
+                nl,
+                write('                            /\\ '),
+                nl, 
+                write('                   Daniel       Constancia ').
+
+
+
+                
+                
+
+                
 
