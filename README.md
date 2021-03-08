@@ -315,7 +315,79 @@ insertar(X,Index,[Cabeza|Lista1],[Cabeza,Lista2]):-K is Index-1,
 
 el problema 4 se resuelve utilizando listas, una regla recursiva y 2 funciones nativas de prolog.
 
+Es la regla recursiva en la cual se envían 2 argumentos, el primero es la matriz de 4x4 del sudoku. S-e envía como una lista de la siguiente manera:
+
+1) entre corchetes.
+
+2) los espacios en blanco se colocan como "_".
+
+3) los números se envían con el número deseado.
+
+El segundo argumento se envía la palabra solución.
+
 ```
-sudoku(Juego, Solucion)
+sudoku(Juego, Solucion):
+```
+
+Se declara que la solución va a ser igual al juego (la matriz de 4x4).
+
+```
+Solucion = Juego
+```
+
+Se indica que juego va a ser igual a una matriz de 4x4 donde se indica de la siguiente manera VMN, siendo V un identificador, M el número de fila en la matriz y N el número de columna en la matriz.
+
+```
+Juego = [V11, V12, V13, V14,
+         V21, V22, V23, V24,
+         V31, V32, V33, V34,
+         V41, V42, V43, V44]
+```
+
+ Se especifican como van a ser las filas
+
+```
+Fila1 = [V11, V12, V13, V14],
+Fila2 = [V21, V22, V23, V24],
+Fila3 = [V31, V32, V33, V34],
+Fila4 = [V41, V42, V43, V44],
+```
+
+Se especifica como van a ser las columnas
+
+```
+    Columna1 = [V11, V21, V31, V41],
+    Columna2 = [V12, V22, V32, V42],
+    Columna3 = [V13, V23, V33, V43],
+    Columna4 = [V14, V24, V34, V44],
+```
+
+Se recolectan "pequeños cuadros" de 2x2 
+
+```
+    Reco1 = [V11, V12, V21, V22],
+    Reco2 = [V13, V14, V23, V24],
+    Reco3 = [V31, V32, V41, V42],
+    Reco4 = [V33, V34, V43, V44],
+```
+
+Se crea una lista con la declaraciones anteriores
+
+```
+Lista = [Fila1, Fila2, Fila3, Fila4,
+           Columna1, Columna2, Columna3, Columna4,
+           Reco1, Reco2, Reco3, Reco4],
+```
+
+Se utiliza permutation que en prolog sería permutation/2, esto sirve para generar las permutaciones de los posibles valores, se le envía como argumento los números que deseamos que se permuten, en este caso [1,2,3,4]
+
+```
+permutation([1,2,3,4])
+```
+
+También utilizamos otra función propia de prolog que se llama maplist, esto retorna verdadero cuando todos los elementos que se desean mapear han sido añadidos, recibe como argumento 2 argumentos, el primero es "el objetivo"  de como debe de quedar, en este caso va a ser la permutación de valores que retorne [1,2,3.4] y el otro la lista de valores que se realizo, con filas, columnas y la recolección de pequeños cuadros.
+
+```
+maplist(permutation([1,2,3,4]), Lista).
 ```
 
