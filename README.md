@@ -105,6 +105,80 @@ es_culpable(X):- es_hermana(Y,X),
                  es_padre(W,Z), es_hombre(W), not(estaban_llorando(X))
 ```
 
+## Problema 2
+
+ Hechos:
+
+Recibe un argumento de parámetro para definir un género de una persona.
+
+```
+es_mujer()
+es_hombre()
+```
+
+Recibe dos argumentos para definir relación entre padre e hijo de una persona.
+
+```
+es_padre(,)
+```
+
+Recibe dos argumentos y sirve para definir la relación de hermanos que hay entre las personas.
+
+```
+es_hermana(,)
+```
+
+Recibe dos argumentos y sirve para definir las parejas que hay en el árbol familiar.
+
+```
+es_pareja(,)
+```
+
+Reglas:
+
+Se indica que cuando son hermanos, está relación es en ambas direcciones
+
+```
+son_hermanos(X,Y):- es_hermana(X,Y); 
+                    es_hermana(Y,X).
+```
+
+Se indica que cuando son pareja, ambas personas son pareja mutua y no solo en una relación
+
+```
+son_pareja(X,Y):- es_pareja(X,Y);
+                  es_pareja(Y,X).
+```
+
+Expresa la relación que hay entre primos, tomando en cuenta que son los hijos de 2 padres que son hermanos.
+
+```
+son_primos(X,Y):-es_padre(Z,X),es_padre(W,Y),
+                 son_hermanos(W,Z)
+```
+
+La relación entre cuñados expresa que, los cuñados serán aquellos, que son pareja de un hermano(a).
+
+```
+son_cunis(X,Y):-((son_pareja(X,Z),son_hermanos(Z,Y));
+                (son_pareja(Y,Z),son_hermanos(Z,X))).
+```
+
+ La relación entre abuelos se define como los hijos, de los hijos de la persona.
+
+```
+son_abuelo(X,Y):-es_padre(X,Z)
+               ,(es_padre(Z,Y))
+```
+
+La relación de tíos se define que el hijo de los padres van a tener como tíos a los cuñados de los padres, o hermanos de los padres.
+
+```
+son_tios(X,Y):-  (son_cunis(X,Z);
+                 son_hermanos(X,Z)),
+                 es_padre(Z,Y)
+```
+
 
 
 ## Problema 3
@@ -235,5 +309,13 @@ K es el index - 1 , se inserta el elemento en la posición K, se envía la Lista
 ```
 insertar(X,Index,[Cabeza|Lista1],[Cabeza,Lista2]):-K is Index-1, 
                                 insertar(X,K,Lista1,Lista2).
+```
+
+## Problema 4
+
+el problema 4 se resuelve utilizando listas, una regla recursiva y 2 funciones nativas de prolog.
+
+```
+sudoku(Juego, Solucion)
 ```
 
